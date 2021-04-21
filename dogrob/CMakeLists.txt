@@ -9,11 +9,12 @@ project(dogrob)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   message_generation
+  robot_state_publisher
   roscpp
   rospy
   std_msgs
   geometry_msgs
-  #dogrob_util
+  dogrob_util
 )
 
 ## System dependencies are found with CMake's conventions
@@ -75,7 +76,7 @@ generate_messages(
   DEPENDENCIES
   geometry_msgs
   std_msgs
-  #dogrob_util 
+  dogrob_util 
 )
 
 ################################################
@@ -110,7 +111,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES dogrob
-CATKIN_DEPENDS rospy std_msgs geometry_msgs message_runtime
+CATKIN_DEPENDS   robot_state_publisher roscpp rospy std_msgs geometry_msgs message_runtime
 #  DEPENDS system_lib
 )
 
