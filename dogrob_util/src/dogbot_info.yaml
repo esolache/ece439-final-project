@@ -1,0 +1,80 @@
+# Mobile robot parameters
+counts_per_encoder_revolution: 12.0
+gear_ratio: 120.0
+wheel_width_actual: 0.151
+wheel_width_model: 0.151
+body_length: 0.235
+wheel_diameter_actual: 0.060
+wheel_diameter_model: 0.060
+left_encoder_sign: -1
+left_motor_sign: 1
+right_encoder_sign: 1
+right_motor_sign: -1
+vel_left_f: 000.
+vel_left_p: 1000.
+vel_left_i: 10000.
+vel_left_d: 0.
+vel_right_f: 000.
+vel_right_p: 1000.
+vel_right_i: 10000.
+vel_right_d: 0.
+vel_integral_limit: 0.2
+integral_resetting: true
+cmd_rate_of_change_max: 1000.
+motor_command_max: 320
+pos_left_p: 100.
+pos_left_i: 10.
+pos_left_d: 1.
+pos_right_p: 100.
+pos_right_i: 10.
+pos_right_d: 1.
+speed_of_sound_meterspersec: 343.0
+Vmax: 0.2 
+Beta: 2.  
+gamma: 3.  
+angle_focus_factor: 0.0
+waypoint_tolerance: 0.1
+# Robot arm/servos parameters
+# Won't need all of these; comment out unneeded params
+# Frequency to compute new commands (Hz)
+command_frequency: 30
+# Speed for controlled movement
+endpoint_speed: 0.05
+# Height offset (for safety: do dry runs in the air: suggest 0.02 m up)
+vertical_offset: 0.02
+# Sign of positive rotations w.r.t. the +y axis
+y_rotation_sign: 1 # Could otherwise be -1 if using 'positive rotations about the -y axis'
+# Frame offsets to successive links (I don't think we need this)
+#frame_offset_01: [0., 0., 0.1026]
+#frame_offset_12: [0.031, 0., 0.]
+#frame_offset_23: [0.1180, 0., 0.]
+#frame_offset_34: [0.1335, 0., 0.0200]
+#frame_offset_45: [0., 0., 0.]
+#frame_offset_56: [0., 0., 0.]    # Define the Frame 6 ('fingers') origin to coincide with the 3-4 and 4-5 axes ("spherical wrist").
+# Location of the end effector centerpoint relative to the wrist center
+#endpoint_offset_in_frame_6: [0.0370, 0., -0.035]  # forward from 'wrist' to 'fingers' and down to marker tip
+# Rotational Axis limits (degrees)
+#rotational_limits_joint_01: [-88,100]
+#rotational_limits_joint_12: [-134,-19]
+#rotational_limits_joint_23: [61,151]
+#rotational_limits_joint_34: [-88,85]
+#rotational_limits_joint_45: [-81,84]
+#rotational_limits_joint_56: [-90,90]
+# Rotational Axis degrees-to-microseconds mapping
+servo_limits_us_for_arm: [450,2600] # [min,max]
+servo_cmd_us_arm_up: 2000
+servo_cmd_us_arm_down: 1300
+#rotational_angles_for_mapping_joint_01: [-88.,0.,100.]
+#servo_cmd_us_for_mapping_joint_01: [612, 1419, 2500]
+servo_limits_us_tail: [600,2700]
+servo_cmd_us_tail: [750,925,1100]
+#rotational_angles_for_mapping_joint_12: [-134.,-90.,-19.]
+#servo_cmd_us_for_mapping_joint_12: [1917,1488,806]
+#rotational_angles_for_mapping_joint_23: [61.,90.,151.]
+#servo_cmd_us_for_mapping_joint_23: [2374,2058,1306]
+#rotational_angles_for_mapping_joint_34: [-88.,0.,85.]
+#servo_cmd_us_for_mapping_joint_34: [531,612,975]
+#rotational_angles_for_mapping_joint_45: [-81.,-1.,84.]
+#servo_cmd_us_for_mapping_joint_45: [2500,1564,696]
+#rotational_angles_for_mapping_joint_56: [-90.,0.,90.]
+#servo_cmd_us_for_mapping_joint_56: [556,1454,2500]
