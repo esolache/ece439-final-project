@@ -1,0 +1,35 @@
+<launch> 
+  <rosparam command="load" file="$(find dogrob_util)/src/robot_info.yaml" />
+  
+  <group ns="dogbot_operate">
+    <node pkg="mobrob" name="sensing_and_control_node" type="sensing_and_wheel_control_node.py"/>
+    <node pkg="mobrob" name="sensors_processing_node" type="sensors_processing.py"/>
+  </group>
+
+  <!-- In this group, launch the "dead_reckoning" node and another "animator" to draw where the robot thinks it is. -->
+  <group ns="dogbot_estimate">
+    <!-- first a "dead reckoning" node -->
+    <node pkg="mobrob" name="dead_reckoning" type="dead_reckoning.py" />
+    
+    <!-- then an "animator" node, but remapped to make it subscribe to "/robot_pose_estimated" instead of "/robot_pose_simulated"  -->
+    <node pkg="mobrob" name="dead_reckoning_animator" type="mobile_robot_animator.py" >
+        <remap from="/robot_pose_simulated" to="/robot_pose_estimated"/>    
+    </node>
+  </group>
+
+  <!-- Edit the "dogbot_control" group to launch the "closed_loop_path_follower.py", "waypoint_seeker.py" and "set_waypoints.py" nodes. --> 
+  <group ns="dogbot_mobile_ctrl">
+    <node pkg="mobrob" name="closed_loop_path_follower" type="closed_loop_path_follower.py"/>    
+    <node pkg="mobrob" name="waypoint_seeker" type="waypoint_seeker.py"/>
+    <node pkg="mobrob" name="set_waypoints" type="set_waypoints.py"/>
+  </group>
+  
+  <!-- Dogbot arm and tail functionality -->
+  <group ns="dogbot_servo_ctrl">
+    <node pkg="armrob" name="command_servos" type="command_arm.py"/> <!-- need to finalize how we're commanding servos -->
+    <node pkg="armrob" name="smooth_waypoint_seeker" type="smooth_waypoint_seeker.py"/> <!-- maybe just take the smoothing function -->
+
+  </group>
+
+  
+</launch>
