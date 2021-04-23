@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 
-# Write psuedo code/random notes for dogrob features.
-
-# Name this 
+# Name: dogbot_main
 # Import stuff like access to mobrob and servos?
 import rospy
 import traceback
@@ -12,12 +10,9 @@ from mobrob_util.msg import ME439WaypointXY, ME439PathSpecs
 from geometry_msgs.msg import Pose2D
 from std_msgs.msg import Bool
 
-waypoint = ME439WaypointXY()
-waypoint.x = np.nan     # Set to Not A Number initially so it does not think the waypoint is finished. 
-waypoint.y = np.nan
-
 # Dog must spin first to find a tag
 spin = True
+goHome = False
 
 def talker():
     rospy.init_node("dogbot_main", anonymous=False)
@@ -51,6 +46,5 @@ def pick_up_put_down(msg_in)
             #wag tail
         else:
             #pick up
-            waypoint.x = 0
-            waypoint.y = 0
+            goHome = True # Publish to set waypoints so that it sets to 0,0
             #publish?
