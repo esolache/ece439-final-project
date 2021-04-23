@@ -35,7 +35,8 @@ for fname in images:
 
     ret, corners = cv2.findCirclesGrid(gray,(4,11),flags=cv2.CALIB_CB_ASYMMETRIC_GRID | cv2.CALIB_CB_CLUSTERING)
     print(fname + ":" )
-    if (corners != None):
+    #print(corners)
+    if (corners.dtype != None):
         for i in range(0,len(corners)):
             img = cv2.circle(img, (corners[i][0][0],corners[i][0][1]),5,(255,0,0),3)
     if ( ret == True):

@@ -27,7 +27,7 @@ while True:
 	parameters = aruco.DetectorParameters_create()
 	corners, ids, rejectedImgPoints = aruco.detectMarkers(gray,aruco_dict,parameters=parameters)
         if (len(corners) > 0):
-            rot_vec, trans_vec, _ = aruco.estimatePoseSingleMarkers(corners,.1016,cam_matrix,dist_matrix);
+            rot_vec, trans_vec = aruco.estimatePoseSingleMarkers(corners,.1016,cam_matrix,dist_matrix);
             axis = np.float32([[4,0,0],[0,4,0],[0,0,-4]]).reshape(-1,3)
             imgpts, jac = cv2.projectPoints(axis,rot_vec,trans_vec,cam_matrix,dist_matrix);
             print(imgpts)
