@@ -5,7 +5,9 @@
 # tag_tracking_with_distance.py has a while loop, which we'll need to think about with ROS (subscribe/publish)
 
 # Import stuff like access to mobrob and servos?
-#! /usr/bin/python2
+
+import rospy
+import traceback
 import numpy as np
 import cv2
 import PIL
