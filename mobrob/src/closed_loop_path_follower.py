@@ -63,7 +63,7 @@ path_is_complete = False
 
 ####    CODE HERE: Create two publishers as described
 # Create the publisher. Name the topic "wheel_speeds_desired", with message type "ME439WheelSpeeds"
-pub_speeds = rospy.Publisher('/wheel_speeds_desired', ME439WheelSpeeds, queue_size=1)
+pub_speeds = rospy.Publisher('/wheel_speeds_desired_wp', ME439WheelSpeeds, queue_size=1)
 
 # Create the publisher for "segment_complete". Name the topic "segment_complete", with message type "Bool"
 pub_segment_complete = rospy.Publisher('/segment_complete', Bool, queue_size=1)

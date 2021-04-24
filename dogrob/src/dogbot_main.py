@@ -63,7 +63,7 @@ def pick_up_put_down(msg_in)
 
 if __name__ == '__main__':
     try: 
-        listener()
+        talker()
     except rospy.ROSInterruptException: 
         pass
 #        traceback.print_exc()

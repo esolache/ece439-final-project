@@ -47,14 +47,10 @@ def compute_waypoint(tag_loc_msg):
     #uncomment this once math complete
     #pub_waypoint_xy.publish(waypoint)
 
-def startSpin(spin_msg_in):
-    if spin_msg_in == True:
-        # Send pathspec for pivot
-
 
 if __name__ == '__main__':
     try: 
-        listener()
+        talker()
     except rospy.ROSInterruptException: 
         pass
 #        traceback.print_exc()
