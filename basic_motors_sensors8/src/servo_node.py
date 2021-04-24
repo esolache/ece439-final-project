@@ -36,13 +36,19 @@ def main():
     #     # Launch a node called "servo_node"
     # =============================================================================
     rospy.init_node('servo_node', anonymous=False)
-    print('Servos Ready!')
+    #print('Servos Ready!')
     
     # Call the initialization function to ensure a soft start. 
     initialize_pwm() # 
     
-    # Set up subscriber that listens to "/servo_command_0"
-    sub_servo_command_0 = rospy.Subscriber('/servo_command_0', Int32, command_servo_0)
+    # Set up subscriber that listens to "/servo_command_0" or "/arm_servo_0"
+    sub_servo_command_0 = rospy.Subscriber('/arm_servo_0', Int32, command_servo_0)
+    
+    # Subscriber for '/tail_servo_1'
+    sub_servo_command_1 = rospy.Subscriber('/tail_servo_1', Int32, command_servo_1)
+
+    # Subscriber for '/electromag_servo_3'
+    sub_servo_command_3 = rospy.Subscriber('/electromag_servo_3', Int32, command_servo_3)
     
     rospy.spin()
     
@@ -53,7 +59,19 @@ def command_servo_0(msg_in):
     # unpack the command
     cmd_0 = msg_in.data
     setServoPulse(0,cmd_0)
-    
+
+#   # Callback function: receives a desired joint angle
+def command_servo_1(msg_in): 
+    # unpack the command
+    cmd_1 = msg_in.data
+    setServoPulse(1,cmd_1)
+ 
+#   # Callback function: receives a desired joint angle
+def command_servo_3(msg_in): 
+    # unpack the command
+    cmd_3 = msg_in.data
+    setServoPulse(3,cmd_3)
+
 # Define a Function to set the servo command on a given channel to a specified command 
 def setServoPulse(channel, pulse_us):
     # Actually set the command
@@ -63,7 +81,12 @@ def setServoPulse(channel, pulse_us):
 # Define a function to shut down all the servos by sending them zero pulse width (same as no command)
 def initialize_pwm():
     for ii in range(16):
-        setServoPulse(ii, 0)
+        if ii == 0:
+            setServoPulse(ii, 2000) #Arm to up
+        elif ii == 1:
+            setServoPulse(ii, 925) #Tail to middle
+        else:
+            setServoPulse(ii, 0)
     
 
 
