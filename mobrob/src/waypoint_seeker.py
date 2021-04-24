@@ -22,8 +22,14 @@ waypoint.y = np.nan
 waypoint_complete = Bool()
 waypoint_complete.data = False    
 
-# Get parameters from rosparam
-## none needed for waypoint seeker ##
+# Get parameters from rosparam for pivot
+wheel_width = rospy.get_param('/wheel_width_model') # All you have when planning is a model - you never quite know the truth! 
+body_length = rospy.get_param('/body_length')
+wheel_diameter = rospy.get_param('/wheel_diameter_model')
+wheel_radius = wheel_diameter/2.0
+
+# Create a mobile robot object from the Imported module "me439_mobile_robot_class"
+robot = m439rbt.robot(wheel_width, body_length, wheel_radius)
 
 
 # =============================================================================
@@ -107,6 +113,9 @@ def set_path_to_waypoint(pose_msg_in):
 def set_waypoint(waypoint_msg_in): 
     global waypoint, waypoint_complete
     waypoint = waypoint_msg_in
+   # if np.isnan():
+        #send pivot. skips
+    #    path_segment_spec
     waypoint_complete.data = False
 #    pub_waypoint_complete.publish(waypoint_complete)
 
