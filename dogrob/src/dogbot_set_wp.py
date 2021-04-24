@@ -50,3 +50,11 @@ def compute_waypoint(tag_loc_msg):
 def startSpin(spin_msg_in):
     if spin_msg_in == True:
         # Send pathspec for pivot
+
+
+if __name__ == '__main__':
+    try: 
+        listener()
+    except rospy.ROSInterruptException: 
+        pass
+#        traceback.print_exc()

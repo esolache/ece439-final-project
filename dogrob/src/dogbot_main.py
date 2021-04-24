@@ -59,3 +59,11 @@ def pick_up_put_down(msg_in)
             goHome = True # Publish to set waypoints so that it sets to 0,0
             pub_goHome.publish(goHome)
             #publish?
+
+
+if __name__ == '__main__':
+    try: 
+        listener()
+    except rospy.ROSInterruptException: 
+        pass
+#        traceback.print_exc()
