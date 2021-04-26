@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python2
 
 
 from pololu_drv8835_rpi import motors

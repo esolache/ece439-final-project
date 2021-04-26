@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#!/usr/bin/python2
 import numpy as np
 import cv2
 import glob

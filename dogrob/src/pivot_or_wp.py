@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python2
 
 # Name: pivot_or_wp.py
 # this node decides whether or not we're following a waypoint or spinning.

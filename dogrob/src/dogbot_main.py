@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python2
 
 # Name: dogbot_main
 # Import stuff like access to mobrob and servos?

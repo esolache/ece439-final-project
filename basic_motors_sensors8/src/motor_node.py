@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python2
 # -*- coding: utf-8 -*-
 """
 title: Motor Node - ME439 Intro to robotics, wisc.edu

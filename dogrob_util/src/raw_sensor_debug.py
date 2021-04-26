@@ -1,4 +1,4 @@
-#! /usr/bin/python3
+#!/usr/bin/python2
 import serial
 
 # Set up a Serial port connection. Port is either '/dev/ttyS0' (for Alamode) or '/dev/ttyUSB0' (for Arduino Nano on USB)

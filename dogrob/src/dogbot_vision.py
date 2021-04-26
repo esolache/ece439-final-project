@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python2
 
 # Name: dogbot_vision.py
 # copy/paste tag_tracking_with_distance.py into this and add publishers??? or just add publisher to tag_tracking_with_distance.py?
