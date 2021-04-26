@@ -15,7 +15,7 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   geometry_msgs
   mobrob
-  mobrob_util
+  dogrob_util
 )
 
 ## System dependencies are found with CMake's conventions
@@ -78,7 +78,7 @@ generate_messages(
   geometry_msgs
   std_msgs
   mobrob
-  mobrob_util 
+  dogrob_util 
 )
 
 ################################################
