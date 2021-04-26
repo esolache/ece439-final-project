@@ -6,7 +6,7 @@ import rospy
 import traceback
 import numpy as np
 
-from mobrob_util.msg import ME439WaypointXY, ME439PathSpecs
+from dogrob_util.msg import ME439WaypointXY, ME439PathSpecs
 from geometry_msgs.msg import Pose2D
 from std_msgs.msg import Bool
 

@@ -6,7 +6,7 @@ import numpy as np
 # IMPORT the custom message: 
 # we import it "from" the ROS package we created it in (here "me439robot") with an extension of .msg ...
 # and actually import the message type by name (here "ME439WaypointXY")
-from mobrob_util.msg import ME439WaypointXY
+from dogrob_util.msg import ME439WaypointXY
 from std_msgs.msg import Bool
 
 

@@ -10,7 +10,7 @@ import rospy
 import numpy as np
 import traceback 
 from geometry_msgs.msg import Pose2D
-from mobrob_util.msg import ME439WheelDisplacements
+from dogrob_util.msg import ME439WheelDisplacements
 
 #==============================================================================
 # # Get parameters from rosparam

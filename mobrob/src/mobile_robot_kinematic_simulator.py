@@ -11,7 +11,7 @@ import rospy
 import traceback 
 import me439_mobile_robot_class_v00 as m439rbt
 from geometry_msgs.msg import Pose2D
-from mobrob_util.msg import ME439WheelSpeeds, ME439WheelAngles, ME439WheelDisplacements
+from dogrob_util.msg import ME439WheelSpeeds, ME439WheelAngles, ME439WheelDisplacements
 
 #==============================================================================
 # # Get parameters from rosparam

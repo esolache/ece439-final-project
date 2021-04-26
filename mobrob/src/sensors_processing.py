@@ -12,8 +12,8 @@ import numpy as np
 # IMPORT the custom message: 
 # we import it "from" the ROS package we created it in (here "me439robot") with an extension of .msg ...
 # and actually import the message type by name (here "ME439SensorsRaw")
-from mobrob_util.msg import ME439SensorsRaw
-from mobrob_util.msg import ME439SensorsProcessed
+from dogrob_util.msg import ME439SensorsRaw
+from dogrob_util.msg import ME439SensorsProcessed
 
 # Initialize globals
 t_previous = 0. 

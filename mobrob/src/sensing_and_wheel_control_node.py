@@ -13,7 +13,7 @@ import encoders_and_motors as encmot
 # IMPORT the custom messages: 
 # we import it "from" the ROS package we created it in (here "me439robot") with an extension of .msg ...
 # and actually import the message type by name (here "ME439SensorsRaw" and others)
-from mobrob_util.msg import ME439SensorsRaw, ME439WheelSpeeds, ME439MotorCommands, ME439WheelAngles, ME439WheelDisplacements
+from dogrob_util.msg import ME439SensorsRaw, ME439WheelSpeeds, ME439MotorCommands, ME439WheelAngles, ME439WheelDisplacements
 
 
 #==============================================================================
