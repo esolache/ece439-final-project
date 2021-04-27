@@ -12,8 +12,8 @@ from std_msgs.msg import Bool
 from std_msgs.msg import Int32
 
 # Dog must spin first to find a tag
-spin = True
-goHome = False
+spin = Bool()
+goHome = Bool()
 
 
 def talker():
@@ -21,7 +21,10 @@ def talker():
 
     arm_up = rospy.get_param('/servo_cmd_us_arm_up')
     arm_down = rospy.get_param('/servo_cmd_us_arm_down')
-
+    spin = True
+    goHome = False
+    
+    # Need while true loop?
     # Publish home
     pub_goHome = rospy.Publisher('/home', Bool, queue_size = 1)
 
@@ -47,7 +50,7 @@ def talker():
 
 # Tells robot what to do if an ArUco tag is found or not
 def finding_tag(tag_msg_in):
-    global spin
+    global spin, pub_spin, waypoint
     if tag_msg_in.data == False:
         # if Tag is not found and wp is not 0,0: spin to find tag
         if waypoint.any() != 0:
@@ -67,11 +70,11 @@ def finding_tag(tag_msg_in):
 
 # Tells robot what to do when waypoint is complete.
 def pick_up_put_down(msg_in):
-    global goHome, arm_up, arm_down
+    global goHome, arm_up, arm_down, pub_electromag, pub_goHome
     if msg_in.data == True:
         if waypoint.all() == 0:
             #put down
-            pub_electromag(0) #just drops it lol
+            pub_electromag.publish(0) #just drops it lol
             #wag tail
             wag_tail()
             rospy.sleep(2) # Waits 2 sec before starting again
@@ -83,7 +86,7 @@ def pick_up_put_down(msg_in):
 
 # Pick up
 def pick_up():
-    global arm_up, arm_down
+    global arm_up, arm_down, pub_electromag, pub_arm_servo
     pub_electromag.publish(18000) # turn on electromag
     pub_arm_servo.publish(arm_down)
     rospy.sleep(0.2)
@@ -91,6 +94,7 @@ def pick_up():
 
 # Wag Tail needs own function
 def wag_tail():
+    global pub_tail_servo
     #left
     pub_tail_servo.publish(750)
     rospy.sleep(0.2)
