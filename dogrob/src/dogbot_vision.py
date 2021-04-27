@@ -21,20 +21,24 @@ from dogrob_util.msg import ME439WaypointXY, ME439PathSpecs
 from geometry_msgs.msg import Pose2D
 from std_msgs.msg import Bool
 
-
+#pub_arucoFound
+#pub_arucoTransVector
+pub_arucoFound = rospy.Publisher('/vision_arucoFound', Bool, queue_size = 1)
+pub_arucoTransVector = rospy.Publisher('/vision_arucoTransVector', ME439WaypointXY, queue_size = 1)
 arucoLocation = ME439WaypointXY()
 arucoFound = Bool()
 
 def talker():
+    global pub_arucoFound, pub_arucoTransVector
     rospy.init_node("dogbot_vision", anonymous=False)
     # Publish home
-    pub_arucoFound = rospy.Publisher('/vision_arucoFound', Bool, queue_size = 1)
+#    pub_arucoFound = rospy.Publisher('/vision_arucoFound', Bool, queue_size = 1)
 
     # Publish toSpin
-    pub_arucoTransVector = rospy.Publisher('/vision_arucoTransVector', ME439WaypointXY, queue_size = 1)
+ #   pub_arucoTransVector = rospy.Publisher('/vision_arucoTransVector', ME439WaypointXY, queue_size = 1)
 
-
-    checkArucoTagFound()
+    while True: 
+        checkArucoTagFound()
     rospy.spin()
 
 
@@ -43,7 +47,7 @@ def talker():
 
 
 def checkArucoTagFound():
-    
+    global pub_arucoFound, pub_arucoTransVector, arucoLocation, arucoFound
     camera = cv2.VideoCapture(0)
     camera.set(cv2.CAP_PROP_FRAME_WIDTH,1280);
     camera.set(cv2.CAP_PROP_FRAME_HEIGHT,960);
@@ -88,7 +92,7 @@ def checkArucoTagFound():
 
     
     pub_arucoFound.publish(arucoFound)
-    pub_arucoTransVector(arucoLocation)
+    pub_arucoTransVector.publish(arucoLocation)
 
 
 if __name__ == '__main__':
