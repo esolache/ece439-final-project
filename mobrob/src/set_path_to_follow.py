@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python2
 
 # =============================================================================
 # Peter G. Adamczyk 
@@ -12,7 +12,7 @@ import numpy as np
 # IMPORT the custom message: 
 # we import it "from" the ROS package we created it in (here "me439robot") with an extension of .msg ...
 # and actually import the message type by name (here "ME439WheelSpeeds")
-from mobrob_util.msg import ME439PathSpecs
+from dogrob_util.msg import ME439PathSpecs
 from std_msgs.msg import Bool
 import me439_mobile_robot_class_v02 as m439rbt  # REMEMBER to call the right file (version, or use the _HWK if needed)
 

@@ -1,4 +1,4 @@
-#! /usr/bin/python3
+#! /usr/bin/python2
 
 import serial
 from pololu_drv8835_rpi import motors, MAX_SPEED

@@ -60,8 +60,8 @@
   <build_depend>sensor_msgs</build_depend>
   <build_depend>tf</build_depend>
   <build_depend>mobrob</build_depend>
-  <build_depend>mobrob_util</build_depend>
-  <build_depend>dogbot_util</build_depend>
+	  <!-- <build_depend>mobrob_util</build_depend>-->
+  <build_depend>dogrob_util</build_depend>
   <build_export_depend>geometry_msgs</build_export_depend>
   <build_export_depend>roscpp</build_export_depend>
   <build_export_depend>rospy</build_export_depend>
@@ -69,9 +69,9 @@
   <build_export_depend>std_msgs</build_export_depend>
   <build_export_depend>sensor_msgs</build_export_depend>
   <build_export_depend>tf</build_export_depend>
-  <build_export_depend>dogbot_util</build_export_depend>
+  <build_export_depend>dogrob_util</build_export_depend>
   <build_export_depend>mobrob</build_export_depend>
-  <build_export_depend>mobrob_util</build_export_depend>
+	  <!-- <build_export_depend>mobrob_util</build_export_depend>-->
   <exec_depend>geometry_msgs</exec_depend>
   <exec_depend>message_generation</exec_depend>
   <exec_depend>robot_state_publisher</exec_depend>
@@ -81,9 +81,9 @@
   <exec_depend>std_msgs</exec_depend>
   <exec_depend>sensor_msgs</exec_depend>
   <exec_depend>tf</exec_depend>
-  <exec_depend>dogbot_util</exec_depend>
+  <exec_depend>dogrob_util</exec_depend>
   <exec_depend>mobrob</exec_depend>
-  <exec_depend>mobrob_util</exec_depend>
+	  <!-- <exec_depend>mobrob_util</exec_depend>-->
 
 
   <!-- The export tag contains other, unspecified, tags -->

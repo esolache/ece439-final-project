@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python
 
 # Name: dogbot_vision.py
 # copy/paste tag_tracking_with_distance.py into this and add publishers??? or just add publisher to tag_tracking_with_distance.py?
@@ -17,7 +17,7 @@ import matplotlib as mpl
 import pandas as pd
 import pickle
 
-from mobrob_util.msg import ME439WaypointXY, ME439PathSpecs
+from dogrob_util.msg import ME439WaypointXY, ME439PathSpecs
 from geometry_msgs.msg import Pose2D
 from std_msgs.msg import Bool
 
@@ -93,7 +93,7 @@ def checkArucoTagFound():
 
 if __name__ == '__main__':
     try: 
-        listener()
+        talker()
     except rospy.ROSInterruptException: 
         pass
 #        traceback.print_exc()

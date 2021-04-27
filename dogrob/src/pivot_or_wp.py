@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python2
 
 # Name: pivot_or_wp.py
 # this node decides whether or not we're following a waypoint or spinning.
@@ -7,7 +7,7 @@ import traceback
 import numpy as np
 import me439_mobile_robot_class_v02 as m439rbt
 
-from mobrob_util.msg import ME439WaypointXY, ME439PathSpecs, ME439WheelSpeeds
+from dogrob_util.msg import ME439WaypointXY, ME439PathSpecs, ME439WheelSpeeds
 from geometry_msgs.msg import Pose2D
 from std_msgs.msg import Bool
 

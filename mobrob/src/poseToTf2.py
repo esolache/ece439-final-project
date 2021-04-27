@@ -1,4 +1,4 @@
-#! /usr/bin/python3
+#!/usr/bin/python2
 import rospy
 from visualization_msgs.msg import Marker
 from visualization_msgs.msg import MarkerArray
@@ -10,7 +10,7 @@ import tf2_ros
 import math
 import traceback
 
-from mobrob_util.msg import ME439WheelAngles
+from dogrob_util.msg import ME439WheelAngles
 lastMsg = ME439WheelAngles()
 lastMsg.ang_left = 0
 lastMsg.ang_right = 0

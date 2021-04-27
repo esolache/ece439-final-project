@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python2
 
 # =============================================================================
 # Peter G. Adamczyk 
@@ -11,7 +11,7 @@ import numpy as np
 # IMPORT the custom message: 
 # we import it "from" the ROS package we created it in (here "mobrob_util") with an extension of .msg ...
 # and actually import the message type by name (here "ME439WheelSpeeds")
-from mobrob_util.msg import ME439WheelSpeeds
+from dogrob_util.msg import ME439WheelSpeeds
 
 
 # =============================================================================

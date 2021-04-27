@@ -13,7 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
-  mobrob_util
+  dogrob_util
 )
 
 ## System dependencies are found with CMake's conventions
@@ -74,7 +74,7 @@ generate_messages(
   DEPENDENCIES
   geometry_msgs
   std_msgs
-  mobrob_util
+  dogrob_util
 )
 
 ################################################
