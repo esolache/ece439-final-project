@@ -1,9 +1,13 @@
 <launch> 
   <rosparam command="load" file="$(find dogrob_util)/src/robot_info.yaml" />
   
-  <group ns="dogbot_operate">
+  <group ns="dogbot_motor_operate">
     <node pkg="mobrob" name="sensing_and_control_node" type="sensing_and_wheel_control_node.py"/>
     <node pkg="mobrob" name="sensors_processing_node" type="sensors_processing.py"/>
+    <node pkg="dogrob" name="pivot_or_wp" type="pivot_or_wp.py"/>
+
+    <!-- Dogbot arm and tail functionality -->
+    <node pkg="basic_motors_sensors8" name="servo_node" type="servo_node.py"/>
   </group>
 
   <!-- In this group, launch the "dead_reckoning" node and another "animator" to draw where the robot thinks it is. -->
@@ -18,18 +22,17 @@
   </group>
 
   <!-- Edit the "dogbot_control" group to launch the "closed_loop_path_follower.py", "waypoint_seeker.py" and "set_waypoints.py" nodes. --> 
-  <group ns="dogbot_mobile_ctrl">
+  <group ns="dogbot_ctrl">
     <node pkg="mobrob" name="closed_loop_path_follower" type="closed_loop_path_follower.py"/>    
     <node pkg="mobrob" name="waypoint_seeker" type="waypoint_seeker.py"/>
-    <node pkg="mobrob" name="set_waypoints" type="set_waypoints.py"/>
+    <node pkg="dogrob" name="dogbot_set_wp" type="dogbot_set_wp.py"/>
+
+    <!-- Dogbot main node and vision node -->
+    <node pkg="dogrob" name="dogbot_vision" type="dogbot_vision.py"/>
+    <node pkg="dogrob" name="dogbot_main" type="dogbot_main.py"/>
   </group>
   
-  <!-- Dogbot arm and tail functionality -->
-  <group ns="dogbot_servo_ctrl">
-    <node pkg="armrob" name="command_servos" type="command_arm.py"/> <!-- need to finalize how we're commanding servos -->
-    <node pkg="armrob" name="smooth_waypoint_seeker" type="smooth_waypoint_seeker.py"/> <!-- maybe just take the smoothing function -->
-
-  </group>
+  
 
   
 </launch>
