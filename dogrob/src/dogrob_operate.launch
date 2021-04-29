@@ -1,5 +1,5 @@
 <launch> 
-  <rosparam command="load" file="$(find dogrob_util)/src/robot_info.yaml" />
+  <!-- <rosparam command="load" file="~/catkin_ws_mel/src/dogrob_util/src/dogrob_info.yaml" /> -->
   
   <group ns="dogbot_motor_operate">
     <node pkg="mobrob" name="sensing_and_control_node" type="sensing_and_wheel_control_node.py"/>
@@ -28,7 +28,7 @@
     <node pkg="dogrob" name="dogbot_set_wp" type="dogbot_set_wp.py"/>
 
     <!-- Dogbot main node and vision node -->
-    <node pkg="dogrob" name="dogbot_vision" type="dogbot_vision.py"/>
+    <!--<node pkg="dogrob" name="dogbot_vision" type="dogbot_vision.py"/>-->
     <node pkg="dogrob" name="dogbot_main" type="dogbot_main.py"/>
   </group>
   

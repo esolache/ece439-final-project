@@ -23,10 +23,15 @@ from std_msgs.msg import Bool
 
 #pub_arucoFound
 #pub_arucoTransVector
-pub_arucoFound = rospy.Publisher('/vision_arucoFound', Bool, queue_size = 1)
-pub_arucoTransVector = rospy.Publisher('/vision_arucoTransVector', ME439WaypointXY, queue_size = 1)
+pub_arucoFound = rospy.Publisher('/tagFound', Bool, queue_size = 1)
+pub_arucoTransVector = rospy.Publisher('/tag_location', ME439WaypointXY, queue_size = 1)
 arucoLocation = ME439WaypointXY()
 arucoFound = Bool()
+
+
+cam_matrix = pickle.load(open("/home/pi/catkin_ws_project/src/dogrob/src/cam_matrix.p","rb"))
+dist_matrix = pickle.load(open("/home/pi/catkin_ws_project/src/dogrob/src/dist_matrix.p","rb"))
+
 
 def talker():
     global pub_arucoFound, pub_arucoTransVector
@@ -35,7 +40,8 @@ def talker():
 #    pub_arucoFound = rospy.Publisher('/vision_arucoFound', Bool, queue_size = 1)
 
     # Publish toSpin
- #   pub_arucoTransVector = rospy.Publisher('/vision_arucoTransVector', ME439WaypointXY, queue_size = 1)
+ #   pub_arucoTransVector = rospy.Publisher('/tag_location', ME439WaypointXY, queue_size = 1)
+
 
     while True: 
         checkArucoTagFound()
@@ -47,18 +53,18 @@ def talker():
 
 
 def checkArucoTagFound():
-    global pub_arucoFound, pub_arucoTransVector, arucoLocation, arucoFound
+    global pub_arucoFound, pub_arucoTransVector, arucoLocation, arucoFound, cam_matrix, dist_matrix
     camera = cv2.VideoCapture(0)
     camera.set(cv2.CAP_PROP_FRAME_WIDTH,1280);
     camera.set(cv2.CAP_PROP_FRAME_HEIGHT,960);
 
     plt.figure()
 
-    cam_matrix = pickle.load(open("cam_matrix.p","rb"))
-    dist_matrix = pickle.load(open("dist_matrix.p","rb"))
-
 
     retval, frame = camera.read()
+    if frame is None:
+        return
+    
     gray = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
     print(gray.shape)
     aruco_dict = aruco.Dictionary_get(aruco.DICT_6X6_250)

@@ -15,7 +15,6 @@ waypoint = ME439WaypointXY()
 goToHome = Bool()
 currPose = Pose2D()
 
-
 def talker():
     rospy.init_node("dogbot_set_wp", anonymous=False)
 
@@ -32,10 +31,10 @@ def talker():
     sub_goToHome = rospy.Subscriber('/home', Bool, goToHome)
 
     # Subscriber for spinning
-    toSpin = rospy.Subscriber('/toSpin', Bool, startSpin)
+    #toSpin = rospy.Subscriber('/toSpin', Bool, startSpin)
 
     # Subscriber for deadreckoning curr robot pose 
-    robotPose = rospy.Subscriber('/robot_pose_estimated', Bool, updatePose)
+    robotPose = rospy.Subscriber('/robot_pose_estimated', Pose2D, updatePose)
 
     rospy.spin()
 
@@ -48,7 +47,7 @@ def goToHome(home_msg_in):
         pub_waypoint_xy.publish(waypoint)
 
 def updatePose(pose_msg):
-    currPose = pose_msg.data
+    currPose = pose_msg
 
 def compute_waypoint(tag_loc_msg):
     # do the vector math thing here
@@ -58,8 +57,8 @@ def compute_waypoint(tag_loc_msg):
 
     
 
-    waypoint.x = currPose.x + tag_loc_msg.x*cos(currPose.theta)
-    waypoint.y = currPose.y + tag_loc_msg.y*sin(currPose.theta)
+    waypoint.x = currPose.x + tag_loc_msg.y*np.cos(currPose.theta)
+    waypoint.y = currPose.y + tag_loc_msg.y*np.sin(currPose.theta)
 
     if not goToHome :
         waypoint_complete = False

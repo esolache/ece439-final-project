@@ -22,12 +22,25 @@ spin = False
 
 
 def talker():
+    rospy.init_node("pivot_or_wp", anonymous=False)
 
     pub_speeds = rospy.Publisher('/wheel_speeds_desired', ME439WheelSpeeds, queue_size=1)
 
     sub_spin = rospy.Subscriber('/toSpin', Bool, updateSpin)
     sub_wp_specs = rospy.Subscriber('/wheel_speeds_desired_wp', ME439WheelSpeeds, spinOrWP)
 
+   #while true:
+
+       #while tagFound == false:
+            #pivot
+
+       #while tagFound == true:
+            #waypoint
+            #state machine
+   #end
+
+
+    rospy.spin()
 
 def updateSpin(spin_msg_in):
     global spin
@@ -47,4 +60,9 @@ def spinOrWP(wp_msg_in):
     # Publish wheel speeds
     pub_speeds.publish(wheelspeed)
 
-        
+if __name__ == '__main__':
+    try:
+        talker()
+    except rospy.ROSInterruptException:
+        pass
+        traceback.print_exc()

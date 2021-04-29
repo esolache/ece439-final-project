@@ -3,6 +3,7 @@
 import rospy
 import traceback 
 import numpy as np
+import me439_mobile_robot_class_v02 as m439rbt
 # IMPORT the custom message: 
 # we import it "from" the ROS package we created it in (here "me439robot") with an extension of .msg ...
 # and actually import the message types by name (
