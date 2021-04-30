@@ -15,11 +15,16 @@ waypoint = ME439WaypointXY()
 goToHome = Bool()
 currPose = Pose2D()
 
+# Publisher for waypoint
+pub_waypoint_xy = rospy.Publisher('/waypoint_xy', ME439WaypointXY, queue_size=1)
+
 def talker():
     rospy.init_node("dogbot_set_wp", anonymous=False)
 
-    # Publisher for waypoint
-    pub_waypoint_xy = rospy.Publisher('/waypoint_xy', ME439WaypointXY, queue_size=1)
+    # Initialize waypoint
+    waypoint.x = np.nan
+    waypoint.y = np.nan
+    pub_waypoint_xy.publish(waypoint)
 
     # Subscribes from waypoint_seeker
     waypoint_complete = rospy.Subscriber('/waypoint_complete', Bool, )
@@ -31,12 +36,19 @@ def talker():
     sub_goToHome = rospy.Subscriber('/home', Bool, goToHome)
 
     # Subscriber for spinning
-    #toSpin = rospy.Subscriber('/toSpin', Bool, startSpin)
+    toSpin = rospy.Subscriber('/toSpin', Bool, startSpin)
 
     # Subscriber for deadreckoning curr robot pose 
     robotPose = rospy.Subscriber('/robot_pose_estimated', Pose2D, updatePose)
 
     rospy.spin()
+
+def startSpin(spin_msg_in):
+    if spin_msg_in.data == True:
+        #Give waypoint a ridiculous number. or nan?
+        waypoint.x = np.nan
+        waypoint.y = np.nan
+        pub_waypoint_xy.publish(waypoint)
 
 def goToHome(home_msg_in):
     goToHome = home_msg_in.data

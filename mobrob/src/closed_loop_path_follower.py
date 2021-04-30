@@ -116,12 +116,22 @@ def update_path(path_msg_in):
 # =============================================================================
 def path_follow(pose_msg_in):
     # First assign the incoming message
-    global estimated_pose, path_segment_spec
+    global estimated_pose, path_segment_spec, pub_speeds
     estimated_pose = pose_msg_in
     pose_xy = np.array([estimated_pose.x, estimated_pose.y])
     pose_theta = np.array([estimated_pose.theta])
     if np.isinf(path_segment_spec.Length):
-        return; 
+        return;
+    # if path_segment x0 is nan return
+    if np.isnan(path_segment_spec.x0):
+        #Publish nan wheel speeds
+       # global pub_speeds
+        # Set up the message that will go on that topic. 
+        msg_speeds = ME439WheelSpeeds()
+        msg_speeds.v_left = np.nan
+        msg_speeds.v_right = np.nan
+        pub_speeds.publish(msg_speeds)
+        return;
     # Set up global variables
     global initialize_psi_world, estimated_pose_previous, estimated_x_local_previous, estimated_theta_local_previous, path_segment_curvature_previous, estimated_psi_world_previous, estimated_segment_completion_fraction_previous
     
@@ -257,7 +267,7 @@ def path_follow(pose_msg_in):
         robot.set_wheel_speeds(0.,0.)    
     
     # Now Publish the desired wheel speeds
-    global pub_speeds
+    #global pub_speeds
     # Set up the message that will go on that topic. 
     msg_speeds = ME439WheelSpeeds()
     msg_speeds.v_left = robot.left_wheel_speed

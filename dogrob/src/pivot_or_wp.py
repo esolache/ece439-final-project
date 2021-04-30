@@ -20,11 +20,10 @@ wheel_radius = wheel_diameter/2.0
 robot = m439rbt.robot(wheel_width, body_length, wheel_radius)
 spin = False
 
+pub_speeds = rospy.Publisher('/wheel_speeds_desired', ME439WheelSpeeds, queue_size=1)
 
 def talker():
     rospy.init_node("pivot_or_wp", anonymous=False)
-
-    pub_speeds = rospy.Publisher('/wheel_speeds_desired', ME439WheelSpeeds, queue_size=1)
 
     sub_spin = rospy.Subscriber('/toSpin', Bool, updateSpin)
     sub_wp_specs = rospy.Subscriber('/wheel_speeds_desired_wp', ME439WheelSpeeds, spinOrWP)
@@ -47,13 +46,17 @@ def updateSpin(spin_msg_in):
     spin = spin_msg_in
 
 def spinOrWP(wp_msg_in):
+   #print('in spinorwp')
     global spin, robot, pub_speeds
     wheelspeed = ME439WheelSpeeds()
-    if spin == True:
+    print(spin)
+    if spin.data == True:
+        print('wanting to spin')
         # Send wheelspeed for pivot
-        spin_plan = np.array( [robot.plan_pivot(-1.0, -np.pi)] )
-        wheelspeed.v_left = spin_plan[1]
-        wheelspeed.v_right = spin_plan[2]
+        spin_plan = np.array( [robot.plan_pivot(-0.25, -np.pi)] )
+        print(spin_plan)
+        wheelspeed.v_left = spin_plan[0,1]
+        wheelspeed.v_right = spin_plan[0,2]
     else:
         wheelspeed = wp_msg_in
     

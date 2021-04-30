@@ -88,6 +88,11 @@ def set_path_to_waypoint(pose_msg_in):
     # Set a ME439PathSpecs message
     # A straight line directly from the current location to the intended location. 
     path_segment_spec = ME439PathSpecs()    # Create a message of the appropriate type (ME439PathSpecs)
+    # If wp is nan, send x0 as nan and exit
+    if np.isnan(waypoint.x):
+        path_segment_spec.x0 = np.nan
+        pub_segment_specs.publish(path_segment_spec)
+
     path_segment_spec.x0 = estimated_pose.x    # Current Location x
     path_segment_spec.y0 = estimated_pose.y    # Current Location y
     path_segment_spec.theta0 = np.arctan2(-dx, dy)    # Angle to the endpoint, using the customary y-forward coordinates. Use arctan2. 
