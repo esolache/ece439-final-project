@@ -11,6 +11,7 @@ from geometry_msgs.msg import Pose2D
 from std_msgs.msg import Bool
 
 waypoint = ME439WaypointXY()
+curr_tag_loc = ME439WaypointXY()
 
 goToHome = Bool()
 currPose = Pose2D()
@@ -30,7 +31,7 @@ def talker():
     waypoint_complete = rospy.Subscriber('/waypoint_complete', Bool, )
 
     # Subscriber from the openCV
-    cv_trans_vec = rospy.Subscriber('/tag_location', ME439WaypointXY, compute_waypoint)
+    cv_trans_vec = rospy.Subscriber('/tag_location', ME439WaypointXY, update_wp)
 
     # Subscriber for going home
     sub_goToHome = rospy.Subscriber('/home', Bool, goToHome)
@@ -49,6 +50,8 @@ def startSpin(spin_msg_in):
         waypoint.x = np.nan
         waypoint.y = np.nan
         pub_waypoint_xy.publish(waypoint)
+    else:
+        compute_waypoint(curr_tag_loc)
 
 def goToHome(home_msg_in):
     goToHome = home_msg_in.data
@@ -61,16 +64,18 @@ def goToHome(home_msg_in):
 def updatePose(pose_msg):
     currPose = pose_msg
 
-def compute_waypoint(tag_loc_msg):
+def update_wp(tag_loc_msg):
+    curr_tag_loc.x = tag_loc_msg.x
+    curr_tag_loc.y = tag_loc_msg.y
+
+def compute_waypoint(tag_loc):
     # do the vector math thing here
     #tag_log_msg is the transVector
     #tag_loc_msg.x
     #tag_loc_msg.y
-
     
-
-    waypoint.x = currPose.x + tag_loc_msg.y*np.cos(currPose.theta)
-    waypoint.y = currPose.y + tag_loc_msg.y*np.sin(currPose.theta)
+    waypoint.x = currPose.x + tag_loc.y*np.cos(currPose.theta)
+    waypoint.y = currPose.y + tag_loc.y*np.sin(currPose.theta)
 
     if not goToHome :
         waypoint_complete = False
