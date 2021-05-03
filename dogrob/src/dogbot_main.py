@@ -15,6 +15,8 @@ from std_msgs.msg import Int32
 spin = Bool()
 goHome = Bool()
 waypoint = ME439WaypointXY()
+arm_up = rospy.get_param('/servo_cmd_us_arm_up')
+arm_down = rospy.get_param('/servo_cmd_us_arm_down')
 
 # Publish home
 pub_goHome = rospy.Publisher('/home', Bool, queue_size = 1)
@@ -78,6 +80,7 @@ def finding_tag(tag_msg_in):
         print('in if tag is found in findingtag')
         spin = False
         pub_spin.publish(spin)
+        pub_goHome.publish(goHome)
         #wag tail
         wag_tail()
 
