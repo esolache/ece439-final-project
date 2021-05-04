@@ -98,7 +98,8 @@ def checkArucoTagFound():
 
     
     pub_arucoFound.publish(arucoFound)
-    pub_arucoTransVector.publish(arucoLocation)
+    if arucoFound:
+        pub_arucoTransVector.publish(arucoLocation)
 
 
 if __name__ == '__main__':
