@@ -48,8 +48,11 @@ def talker():
 
 def startSpin(spin_msg_in):
     spin = spin_msg_in.data
+
     #print('spin')
     #print(spin)
+
+
     if spin == True:
         print('spin is true')
         #Give waypoint a ridiculous number. or nan?
@@ -84,6 +87,7 @@ def compute_waypoint(tag_loc):
     #tag_log_msg is the transVector
     #tag_loc_msg.x
     #tag_loc_msg.y
+
     print('currPose')
     print(currPose.x)
     print(currPose.y)

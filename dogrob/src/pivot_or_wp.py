@@ -53,6 +53,7 @@ def spinOrWP(wp_msg_in):
     if spin == True:
         print('wanting to spin')
         # Send wheelspeed for pivot
+
         spin_plan = np.array( [robot.plan_pivot(0.20, np.pi)] )
         print(spin_plan)
         wheelspeed.v_left = spin_plan[0,1]
