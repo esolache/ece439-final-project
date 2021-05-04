@@ -84,6 +84,10 @@ def compute_waypoint(tag_loc):
     #tag_log_msg is the transVector
     #tag_loc_msg.x
     #tag_loc_msg.y
+<<<<<<< HEAD
+=======
+
+>>>>>>> b4950d0b6d441cdbc219122021209e39b67a543b
     print('currPose')
     print(currPose.x)
     print(currPose.y)
