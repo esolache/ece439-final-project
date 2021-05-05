@@ -13,8 +13,9 @@ from std_msgs.msg import Bool
 waypoint = ME439WaypointXY()
 curr_tag_loc = ME439WaypointXY()
 
-goToHome = Bool()
+goHome = Bool()
 currPose = Pose2D()
+spin = Bool()
 
 # Publisher for waypoint
 pub_waypoint_xy = rospy.Publisher('/waypoint_xy', ME439WaypointXY, queue_size=1)
@@ -23,12 +24,13 @@ def talker():
     rospy.init_node("dogbot_set_wp", anonymous=False)
 
     # Initialize waypoint
+    spin = True
     waypoint.x = np.nan
     waypoint.y = np.nan
     pub_waypoint_xy.publish(waypoint)
 
     # Subscribes from waypoint_seeker
-    waypoint_complete = rospy.Subscriber('/waypoint_complete', Bool, )
+   #waypoint_complete = rospy.Subscriber('/waypoint_complete', Bool, )
 
     # Subscriber from the openCV
     cv_trans_vec = rospy.Subscriber('/tag_location', ME439WaypointXY, update_wp)
@@ -45,39 +47,58 @@ def talker():
     rospy.spin()
 
 def startSpin(spin_msg_in):
-    if spin_msg_in.data == True:
+    spin = spin_msg_in.data
+    #print('spin')
+    #print(spin)
+    if spin == True:
+        print('spin is true')
         #Give waypoint a ridiculous number. or nan?
         waypoint.x = np.nan
         waypoint.y = np.nan
         pub_waypoint_xy.publish(waypoint)
     else:
+        print('compute waypoint')
+        print(curr_tag_loc)
         compute_waypoint(curr_tag_loc)
 
 def goToHome(home_msg_in):
-    goToHome = home_msg_in.data
+    global goHome
+    goHome = home_msg_in.data
 
-    if  goToHome == True:
+    if goHome == True:
         waypoint.x = 0
         waypoint.y = 0
         pub_waypoint_xy.publish(waypoint)
 
 def updatePose(pose_msg):
-    currPose = pose_msg
+    currPose.x = pose_msg.x
+    currPose.y = pose_msg.y
+    currPose.theta = pose_msg.theta
 
 def update_wp(tag_loc_msg):
     curr_tag_loc.x = tag_loc_msg.x
     curr_tag_loc.y = tag_loc_msg.y
 
 def compute_waypoint(tag_loc):
+    global goHome
     # do the vector math thing here
     #tag_log_msg is the transVector
     #tag_loc_msg.x
     #tag_loc_msg.y
-    
-    waypoint.x = currPose.x + tag_loc.y*np.cos(currPose.theta)
-    waypoint.y = currPose.y + tag_loc.y*np.sin(currPose.theta)
+    print('currPose')
+    print(currPose.x)
+    print(currPose.y)
+    print(np.degrees(currPose.theta)%360)
+   # print(tag_loc)
+    waypoint.y = currPose.x + tag_loc.y*np.cos(currPose.theta + (np.pi/2))
+    waypoint.x = currPose.y + tag_loc.y*np.sin(currPose.theta + (np.pi/2))
+    print('waypoint')
+    print(waypoint)
+    print('goHome')
+    print(goHome)
 
-    if not goToHome :
+    if goHome == False:
+        print('going to publish waypoint')
         waypoint_complete = False
         pub_waypoint_xy.publish(waypoint)
 

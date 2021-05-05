@@ -43,17 +43,17 @@ def talker():
 
 def updateSpin(spin_msg_in):
     global spin
-    spin = spin_msg_in
+    spin = spin_msg_in.data
 
 def spinOrWP(wp_msg_in):
    #print('in spinorwp')
     global spin, robot, pub_speeds
     wheelspeed = ME439WheelSpeeds()
     print(spin)
-    if spin.data == True:
+    if spin == True:
         print('wanting to spin')
         # Send wheelspeed for pivot
-        spin_plan = np.array( [robot.plan_pivot(-0.25, -np.pi)] )
+        spin_plan = np.array( [robot.plan_pivot(0.20, np.pi)] )
         print(spin_plan)
         wheelspeed.v_left = spin_plan[0,1]
         wheelspeed.v_right = spin_plan[0,2]

@@ -21,7 +21,7 @@ waypoint.y = np.nan
 
 # Global to track the state of completion of the  waypoint    
 waypoint_complete = Bool()
-waypoint_complete.data = False    
+waypoint_complete = False    
 
 # Get parameters from rosparam for pivot
 wheel_width = rospy.get_param('/wheel_width_model') # All you have when planning is a model - you never quite know the truth! 
@@ -89,9 +89,10 @@ def set_path_to_waypoint(pose_msg_in):
     # A straight line directly from the current location to the intended location. 
     path_segment_spec = ME439PathSpecs()    # Create a message of the appropriate type (ME439PathSpecs)
     # If wp is nan, send x0 as nan and exit
-    if np.isnan(waypoint.x):
-        path_segment_spec.x0 = np.nan
-        pub_segment_specs.publish(path_segment_spec)
+    #if np.isnan(waypoint.x):
+    #    path_segment_spec.x0 = np.nan
+    #    path_segment_spec.Radius = np.inf()
+    #    pub_segment_specs.publish(path_segment_spec)
 
     path_segment_spec.x0 = estimated_pose.x    # Current Location x
     path_segment_spec.y0 = estimated_pose.y    # Current Location y
@@ -108,8 +109,8 @@ def set_path_to_waypoint(pose_msg_in):
     # Check if the robot has arried at the waypoint 
     #  (i.e., if the path Length to waypoint is shorter than 'waypoint_tolerance'). 
     # If so, publish "waypoint_complete" with value True exactly once. 
-    if (path_segment_spec.Length < waypoint_tolerance) and not waypoint_complete.data: # DO NOT send more than once. Wait for a new path segment before sending "waypoint_complete" again 
-        waypoint_complete.data = True
+    if (path_segment_spec.Length < waypoint_tolerance) and not waypoint_complete: # DO NOT send more than once. Wait for a new path segment before sending "waypoint_complete" again 
+        waypoint_complete = True
         pub_waypoint_complete.publish(waypoint_complete)
 
     
@@ -122,7 +123,7 @@ def set_waypoint(waypoint_msg_in):
    # if np.isnan():
         #send pivot. skips
     #    path_segment_spec
-    waypoint_complete.data = False
+    waypoint_complete = False
 #    pub_waypoint_complete.publish(waypoint_complete)
 
         

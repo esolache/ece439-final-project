@@ -14,7 +14,9 @@ from std_msgs.msg import Int32
 # Dog must spin first to find a tag
 spin = Bool()
 goHome = Bool()
-waypoint = ME439WaypointXY()
+#waypoint = ME439WaypointXY()
+arm_up = rospy.get_param('/servo_cmd_us_arm_up')
+arm_down = rospy.get_param('/servo_cmd_us_arm_down')
 
 # Publish home
 pub_goHome = rospy.Publisher('/home', Bool, queue_size = 1)
@@ -38,8 +40,8 @@ def talker():
     arm_down = rospy.get_param('/servo_cmd_us_arm_down')
     spin = True
     goHome = False
-    waypoint.x = np.nan
-    waypoint.y = np.nan
+  #  waypoint.x = np.nan
+  #  waypoint.y = np.nan
     pub_spin.publish(spin)
     pub_goHome.publish(goHome)
     # Subscriber for Whether or not the tag is found
@@ -47,37 +49,41 @@ def talker():
 
     # Subscriber for whether waypoint is complete
     wp_complete = rospy.Subscriber('/waypoint_complete', Bool, pick_up_put_down)
-    sub_wp = rospy.Subscriber('/waypoint_xy', ME439WaypointXY, update_wp)
+  #  sub_wp = rospy.Subscriber('/waypoint_xy', ME439WaypointXY, update_wp)
 
     rospy.spin()
 
 # Updates the waypoint variable
-def update_wp(wp_msg_in):
-    global waypoint
-    waypoint.x = wp_msg_in.x
-    waypoint.y = wp_msg_in.y
+#def update_wp(wp_msg_in):
+#    global waypoint
+#    waypoint.x = wp_msg_in.x
+#    waypoint.y = wp_msg_in.y
 
 # Tells robot what to do if an ArUco tag is found or not
 def finding_tag(tag_msg_in):
-    global spin, pub_spin, waypoint
-    print(waypoint.x)
+    global spin, pub_spin #, waypoint
+  #  print(waypoint.x)
     if tag_msg_in.data == False:
         # if Tag is not found and wp is not 0,0: spin to find tag
-        if (waypoint.x != 0) or (waypoint.y != 0):
+       # if (waypoint.x != 0) or (waypoint.y != 0):
+        if goHome == False:
             print('in if wp not 0 for findingtag')
             spin = True
             pub_spin.publish(spin)
+            #pub_goHome.publish(goHome)
 
         # if Tag is not found and wp is 0,0 (home): don't spin, go home
         else:
             print('in wp is zero for findingtag')
             spin = False
             pub_spin.publish(spin)
+            pub_goHome.publish(goHome)
     # if Tag is found: don't spin, go to tag
     if tag_msg_in.data == True:
         print('in if tag is found in findingtag')
         spin = False
         pub_spin.publish(spin)
+        pub_goHome.publish(goHome)
         #wag tail
         wag_tail()
 
@@ -85,22 +91,25 @@ def finding_tag(tag_msg_in):
 def pick_up_put_down(msg_in):
     global goHome, arm_up, arm_down, pub_electromag, pub_goHome
     if msg_in.data == True:
-        if (waypoint.x == 0) and (waypoint.y == 0):
+        # if (waypoint.x == 0) and (waypoint.y == 0):
+        if goHome: 
             #put down
             pub_electromag.publish(0) #just drops it lol
             #wag tail
             wag_tail()
+            goHome = False
             rospy.sleep(2) # Waits 2 sec before starting again
         else:
             #pick up
             pick_up()
             goHome = True # Publish to set waypoints so that it sets to 0,0
-            pub_goHome.publish(goHome)
+        pub_goHome.publish(goHome)
 
 # Pick up
 def pick_up():
     global arm_up, arm_down, pub_electromag, pub_arm_servo
     pub_electromag.publish(18000) # turn on electromag
+    rospy.sleep(0.2)
     pub_arm_servo.publish(arm_down)
     rospy.sleep(0.2)
     pub_arm_servo.publish(arm_up)

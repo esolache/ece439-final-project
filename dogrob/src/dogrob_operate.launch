@@ -25,7 +25,7 @@
   <group ns="dogbot_ctrl">
     <node pkg="mobrob" name="closed_loop_path_follower" type="closed_loop_path_follower.py"/>    
     <node pkg="mobrob" name="waypoint_seeker" type="waypoint_seeker.py"/>
-    <node pkg="dogrob" name="dogbot_set_wp" type="dogbot_set_wp.py"/>
+   <!-- <node pkg="dogrob" name="dogbot_set_wp" type="dogbot_set_wp.py"/>-->
 
     <!-- Dogbot main node and vision node -->
     <!--<node pkg="dogrob" name="dogbot_vision" type="dogbot_vision.py"/>-->
