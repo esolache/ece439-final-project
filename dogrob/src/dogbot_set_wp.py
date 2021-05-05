@@ -96,7 +96,7 @@ def compute_waypoint(tag_loc):
     print(waypoint)
     print('goHome')
     print(goHome)
-
+    
     if goHome == False:
         print('going to publish waypoint')
         waypoint_complete = False
